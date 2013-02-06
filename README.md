@@ -1,8 +1,8 @@
 
-webサーバのログみたいなものを、どんなふうに吐くべきか？
+webサーバのログみたいなものをどんなふうに吐くべきか？
 ====
 
-以下の３つのフォーマットで、試した
+以下の３つのフォーマットで試した
 
 * JSON
 * LTSV
@@ -14,7 +14,7 @@ webサーバのログみたいなものを、どんなふうに吐くべきか�
 
     ts:[unix timestamp] p:[page id]
 
-JSONではあるログ１行は次のようになる
+JSONでは、あるログ１行は次のようになる
 
     {"ts":1360134080,"p":473}
 
@@ -30,17 +30,23 @@ S式では次のようになる
     cat log.tsv | ruby1.9 json.rb > log.json
     time cat log.json | ruby1.9 parse_json.rb > /dev/null
     
-    real    0m2.978s
-    user    0m2.772s
-    sys     0m0.042s
+    real    0m3.190s
+    user    0m2.880s
+    sys     0m0.050s
     time cat log.tsv | ruby1.9 parse_tsv.rb > /dev/null
     
-    real    0m2.114s
-    user    0m2.002s
-    sys     0m0.030s
+    real    0m2.311s
+    user    0m2.101s
+    sys     0m0.033s
+    time cat log.tsv | gosh parse_tsv.scm > /dev/null
+    
+    real    0m1.544s
+    user    0m1.384s
+    sys     0m0.039s
     cat log.tsv | ruby1.9 s.rb > log.s
     time cat log.s | gosh parse_s.scm > /dev/null
     
-    real    0m1.338s
-    user    0m1.195s
-    sys     0m0.041s
+    real    0m1.433s
+    user    0m1.212s
+    sys     0m0.046s
+
