@@ -5,11 +5,16 @@
     (hash-table-update! acc key (cut + 1 <>) 0)
     acc))
 
+
+(define (->expr line)
+  (map (lambda (col) (map string->symbol (string-split col ":")))
+       (string-split line "\t")))
+
 (define (main args)
   (define (loop acc)
-    (let ((expr (read)))
-      (if (eof-object? expr)
+    (let ((line (read-line)))
+      (if (eof-object? line)
         acc
-        (loop (update acc expr)))))
+        (loop (update acc (->expr line))))))
   (print (hash-table->alist (loop (make-hash-table 'eq?))))
   0)
