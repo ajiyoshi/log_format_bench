@@ -17,7 +17,7 @@ parse_tsv_with_ruby: log.tsv parse_tsv.rb
 	time $(CAT) log.tsv | $(RUBY) parse_tsv.rb $(DEVNULL)
 
 parse_tsv_with_gauche: log.tsv parse_tsv.scm
-	time $(CAT) log.tsv | gosh parse_tsv.scm > $(DEVNULL)
+	time $(CAT) log.tsv | gosh parse_tsv.scm $(DEVNULL)
 
 log.tsv: gen.rb
 	$(RUBY) gen.rb > $@
